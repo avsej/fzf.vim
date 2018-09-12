@@ -692,7 +692,7 @@ function! fzf#vim#ag_raw(command_suffix, ...)
   if !executable('ag')
     return s:warn('ag is not found')
   endif
-  return call('fzf#vim#grep', extend(['ag --nogroup --column --color '.a:command_suffix, 1], a:000))
+  return call('fzf#vim#grep', extend(['ag --nogroup --column --color --color-line-number="0;33" --color-path="0;32" '.a:command_suffix, 1], a:000))
 endfunction
 
 " command, with_column, [options]
@@ -711,8 +711,7 @@ function! fzf#vim#grep(grep_command, with_column, ...)
   \ 'source':  a:grep_command,
   \ 'column':  a:with_column,
   \ 'options': ['--ansi', '--prompt', capname.'> ',
-  \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
-  \             '--color', 'hl:4,hl+:12']
+  \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all']
   \}
   function! opts.sink(lines)
     return s:ag_handler(a:lines, self.column)
